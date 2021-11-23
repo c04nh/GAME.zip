@@ -5,6 +5,7 @@ import catchBug
 import snake
 import tetrisGame
 
+
 pygame.init()
 
 def shooting():
@@ -33,8 +34,8 @@ ws = root.winfo_screenwidth()   # 모니터 가로
 hs = root.winfo_screenheight()  # 모니터 세로
 
 # 모니터 가운데에 위치
-x = (ws/2) - (w/2)  # x좌표
-y = (hs/2) - (h/2)  # y좌효
+x = (ws/2) - (w/2) - 8  # x좌표
+y = (hs/2) - (h/2) - 31 # y좌표
 
 root.geometry('%dx%d+%d+%d' % (w, h, x, y))     # 창 크기, 위치 지정
 root.configure(background='black')  # 배경색 지정
