@@ -184,21 +184,35 @@ def is_overlapped(xpos, ypos, turn):
 
 # 전역 변수
 pygame.init()
-pygame.key.set_repeat(30, 30)
-SURFACE = pygame.display.set_mode([600, 600])
-FPSCLOCK = pygame.time.Clock()
-WIDTH = 12
-HEIGHT = 22
-INTERVAL = 40
-FIELD = [[0 for _ in range(WIDTH)] for _ in range(HEIGHT)]
-COLORS = ((0, 0, 0), (255, 165, 0), (0, 0, 255), (0, 255, 255), \
-          (0, 255, 0), (255, 0, 255), (255, 255, 0), (255, 0, 0), (128, 128, 128))
-BLOCK = None
-NEXT_BLOCK = None
+
+# def initGame():
+#     global SURFACE, SURFACE, FPSCLOCK, WIDTH, HEIGHT, INTERVAL, FIELD, COLORS, BLOCK, NEXT_BLOCK
+#     pygame.key.set_repeat(30, 30)
+#     SURFACE = pygame.display.set_mode([600, 600])
+#     FPSCLOCK = pygame.time.Clock()
+#     WIDTH = 12
+#     HEIGHT = 22
+#     INTERVAL = 40
+#     FIELD = [[0 for _ in range(WIDTH)] for _ in range(HEIGHT)]
+#     COLORS = ((0, 0, 0), (255, 165, 0), (0, 0, 255), (0, 255, 255), \
+#               (0, 255, 0), (255, 0, 255), (255, 255, 0), (255, 0, 0), (128, 128, 128))
+#     BLOCK = None
+#     NEXT_BLOCK = None
 
 def main():
     """ 메인 루틴 """
-    global INTERVAL
+    global SURFACE, SURFACE, FPSCLOCK, WIDTH, HEIGHT, INTERVAL, FIELD, COLORS, BLOCK, NEXT_BLOCK
+    pygame.key.set_repeat(30, 30)
+    SURFACE = pygame.display.set_mode([480, 640])
+    FPSCLOCK = pygame.time.Clock()
+    WIDTH = 12
+    HEIGHT = 22
+    INTERVAL = 40
+    FIELD = [[0 for _ in range(WIDTH)] for _ in range(HEIGHT)]
+    COLORS = ((0, 0, 0), (255, 165, 0), (0, 0, 255), (0, 255, 255), \
+              (0, 255, 0), (255, 0, 255), (255, 255, 0), (255, 0, 0), (128, 128, 128))
+    BLOCK = None
+    NEXT_BLOCK = None
     count = 0
     score = 0
     game_over = False
@@ -207,7 +221,7 @@ def main():
     message_over = largefont.render("GAME OVER!!",
                                     True, (0, 255, 225))
     message_rect = message_over.get_rect()
-    message_rect.center = (300, 300)
+    message_rect.center = (240, 320)
 
     go_next_block(INTERVAL)
 
@@ -269,16 +283,19 @@ def main():
             for xpos in range(NEXT_BLOCK.size):
                 val = NEXT_BLOCK.data[xpos + ypos*NEXT_BLOCK.size]
                 pygame.draw.rect(SURFACE, COLORS[val],
-                                 (xpos*25 + 460, ypos*25 + 100, 24, 24))
+                                 (xpos*25 + 350, ypos*25 + 100, 24, 24))
 
         # 점수 나타내기
         score_str = str(score).zfill(6)
         score_image = smallfont.render(score_str,
                                        True, (0, 255, 0))
-        SURFACE.blit(score_image, (500, 30))
+        SURFACE.blit(score_image, (350, 30))
 
         if game_over:
             SURFACE.blit(message_over, message_rect)
 
         pygame.display.update()
         FPSCLOCK.tick(15)
+
+if __name__ == '__main__':
+    main()

@@ -3,6 +3,7 @@ import pygame
 import PyShooting
 import catchBug
 import snake
+import tetrisGame
 
 pygame.init()
 
@@ -17,6 +18,9 @@ def bug():
 def snack():
     snake.initGame()
     snake.runGame()
+
+def tetris():
+    tetrisGame.main()
 
 root = Tk()
 root.title("GAME.zip")  # 타이틀 지정
@@ -42,7 +46,7 @@ label2.place(x=0, y=280, relx=0.5, anchor="s")   # 글씨 배치
 
 btn1 = Button(root, text='운석 깨기', font=('돋움', 18), fg='red', command=shooting)     # 버튼 생성
 btn2 = Button(root, text='벌레 잡기', font=('돋움', 18), fg='red', command=bug)     # 버튼 생성
-btn3 = Button(root, text='테트리스', font=('돋움', 18), fg='red')     # 버튼 생성
+btn3 = Button(root, text='테트리스', font=('돋움', 18), fg='red', command=tetris)     # 버튼 생성
 btn4 = Button(root, text='스네이크 게임', font=('돋움', 18), fg='red', command=snack)     # 버튼 생성
 btn1.place(x=0, y=360, relx=0.5, anchor="s", width=200, height=50)  # 버튼 배치
 btn2.place(x=0, y=430, relx=0.5, anchor="s", width=200, height=50)  # 버튼 배치
