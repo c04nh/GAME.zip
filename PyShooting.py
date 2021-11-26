@@ -9,10 +9,10 @@ padwWidth = 480  # 게임화면의 가로크기
 padHeight = 640  # 게임화면의 세로 크기
 rockImage = ['Shooting/rock01.png', 'Shooting/rock02.png', 'Shooting/rock03.png', 'Shooting/rock04.png', 'Shooting/rock05.png', \
              'Shooting/rock06.png', 'Shooting/rock07.png', 'Shooting/rock08.png', 'Shooting/rock09.png', 'Shooting/rock10.png', \
-             'Shooting/rock11.png', 'Shooting/rock12.png', 'Shooting/rock13.png', 'Shooting/rock14.png', 'Shooting/rock15.png', \
-             'Shooting/rock16.png', 'Shooting/rock17.png', 'Shooting/rock18.png', 'Shooting/rock19.png', 'Shooting/rock20.png', \
-             'Shooting/rock21.png', 'Shooting/rock22.png', 'Shooting/rock23.png', 'Shooting/rock24.png', 'Shooting/rock25.png', \
-             'Shooting/rock26.png', 'Shooting/rock27.png', 'Shooting/rock28.png', 'Shooting/rock29.png', 'Shooting/rock30.png']
+             'Shooting/rock01.png', 'Shooting/rock02.png', 'Shooting/rock03.png', 'Shooting/rock04.png', 'Shooting/rock05.png', \
+             'Shooting/rock06.png', 'Shooting/rock07.png', 'Shooting/rock08.png', 'Shooting/rock09.png', 'Shooting/rock10.png', \
+             'Shooting/rock01.png', 'Shooting/rock02.png', 'Shooting/rock03.png', 'Shooting/rock04.png', 'Shooting/rock05.png', \
+             'Shooting/rock06.png', 'Shooting/rock07.png', 'Shooting/rock08.png', 'Shooting/rock09.png', 'Shooting/rock10.png']
 explosionSound = ['Shooting/explosion01.wav', 'Shooting/explosion02.wav', 'Shooting/explosion03.wav', 'Shooting/explosion04.wav']
 
 
@@ -73,7 +73,9 @@ def initGame():
     pygame.display.set_caption('PyShooting')  # 게임 이름
     background = pygame.image.load('Shooting/background.png')  # 배경 그림
     fighter = pygame.image.load('Shooting/fighter.png')  # 전투기 그림
+    fighter = pygame.transform.scale(fighter, (140, 141))
     missile = pygame.image.load('Shooting/missile.png')  # 미사일 그림
+    missile = pygame.transform.scale(missile, (20, 70))
     explosion = pygame.image.load('Shooting/explosion.png')  # 폭발 그림
     pygame.mixer.music.load('Shooting/music.wav')  # 배경 음악
     pygame.mixer.music.play(-1)  # 배경 음악 재생
