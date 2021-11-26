@@ -216,12 +216,10 @@ def main():
     count = 0
     score = 0
     game_over = False
-    smallfont = pygame.font.SysFont(None, 36)
-    largefont = pygame.font.SysFont(None, 72)
+    smallfont = pygame.font.SysFont('malgungothic', 25)
+    largefont = pygame.font.SysFont('malgungothic', 40)
     message_over = largefont.render("GAME OVER!!",
                                     True, (0, 255, 225))
-    message_rect = message_over.get_rect()
-    message_rect.center = (240, 320)
 
     go_next_block(INTERVAL)
 
@@ -231,6 +229,8 @@ def main():
                 xpos == WIDTH - 1 else 0
     for index in range(WIDTH):
         FIELD[HEIGHT-1][index] = 8
+
+    f = open('tetris.txt', 'a')
 
     while True:
         key = None
@@ -292,10 +292,12 @@ def main():
         SURFACE.blit(score_image, (350, 30))
 
         if game_over:
-            SURFACE.blit(message_over, message_rect)
+            SURFACE.blit(message_over, (480 // 2 - message_over.get_width() // 2, 640 // 2 - message_over.get_height() // 2 - 100))
+            total_score = smallfont.render('{}점'.format(score), True, (0, 255, 225))
+            SURFACE.blit(total_score, (480 // 2 - total_score.get_width() // 2, 640 // 2 - total_score.get_height() // 2 - 50))
+
+            f.write(f'{score}\n')
+            f.close()
 
         pygame.display.update()
         FPSCLOCK.tick(15)
-
-if __name__ == '__main__':
-    main()
