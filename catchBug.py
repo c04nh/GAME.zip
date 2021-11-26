@@ -97,7 +97,9 @@ def runGame():
             screen.blit(total_score, (screen_width // 2 - total_score.get_width() // 2, screen_height // 2 - total_score.get_height() // 2 - 50))
             screen.blit(save_score_image, (screen_width // 2 - save_score_image.get_width() // 2, screen_height // 2 - save_score_image.get_height() // 2 - 10))
 
-            f.write(f'{score}\n')
+            now = time.localtime()
+            save_time = "%04d/%02d/%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+            f.write(f'{save_time}\t{score}\n')
             f.close()
 
         pygame.display.update()

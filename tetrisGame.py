@@ -2,8 +2,8 @@
 from math import sqrt
 from random import randint
 import pygame
-from pygame.locals import QUIT, KEYDOWN, \
-    K_LEFT, K_RIGHT, K_DOWN, K_SPACE
+from pygame.locals import QUIT, KEYDOWN, K_LEFT, K_RIGHT, K_DOWN, K_SPACE
+import time
 
 BLOCK_DATA = (
     (
@@ -296,7 +296,10 @@ def main():
             total_score = smallfont.render('{}점'.format(score), True, (0, 255, 225))
             SURFACE.blit(total_score, (480 // 2 - total_score.get_width() // 2, 640 // 2 - total_score.get_height() // 2 - 50))
 
-            f.write(f'{score}\n')
+            now = time.localtime()
+            save_time = "%04d/%02d/%02d %02d:%02d:%02d" % (
+            now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+            f.write(f'{save_time}\t{score}\n')
             f.close()
 
         pygame.display.update()

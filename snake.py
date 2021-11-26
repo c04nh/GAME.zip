@@ -2,17 +2,18 @@ import pygame # 1. pygame 선언
 import random
 from datetime import datetime
 from datetime import timedelta
+import time
  
 pygame.init() # 2. pygame 초기화
 
 def initGame():
-    global BLACK, RED, GREEN, size, screen, done, clock, last_moved_time, KEY_DIRECTION
+    global BLACK, RED, GREEN, size, screen, done, clock, last_moved_time, KEY_DIRECTION, large_font
     BLACK = (0,0,0)
     RED = (255,0,0)
     GREEN = (0,255,0)
     size = [480,640]
     screen = pygame.display.set_mode(size)
-
+    large_font = pygame.font.SysFont('malgungothic', 36)
     done= False
     clock= pygame.time.Clock()
     last_moved_time = datetime.now()
@@ -77,31 +78,51 @@ def runGame():
     snake = Snake() 
     apple = Apple()
 
+    count = 0
+
+    f = open('snake.txt', 'a')
     while not done:
         clock.tick(10)
         screen.fill(BLACK)
- 
+
+        snake.draw()
+        apple.draw()
+        # score_str = str(count).zfill(6)
+        # score_image = large_font.render(score_str,True, (0, 255, 0))
+        # screen.blit(score_image, (350, 30))
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done=True
             if event.type == pygame.KEYDOWN:
                 if event.key in KEY_DIRECTION:
                     snake.direction = KEY_DIRECTION[event.key]
+
+        score_image = large_font.render('Point {}'.format(count), True, (255, 255, 255))
+        screen.blit(score_image, (10, 10))
  
         if timedelta(seconds=0.1) <= datetime.now() - last_moved_time:
             snake.move()
             last_moved_time = datetime.now()
  
         if snake.positions[0] == apple.position:
-            snake.grow()    
+            snake.grow()
+            count += 1
             apple.position = (random.randint(0, 19), random.randint(0, 19))
         
         if snake.positions[0] in snake.positions[1:]:
             done = True
- 
- 
-        snake.draw()
-        apple.draw()
+            game_over_image = large_font.render('GameOver', True, RED)
+            total_score = large_font.render('{}점'.format(count), True, RED)
+            screen.blit(game_over_image, (480 // 2 - game_over_image.get_width() // 2, 640 // 2 - game_over_image.get_height() // 2 - 100))
+            screen.blit(total_score, (480 // 2 - total_score.get_width() // 2, 640 // 2 - total_score.get_height() // 2 - 50))
+
+            now = time.localtime()
+            save_time = "%04d/%02d/%02d %02d:%02d:%02d" % (
+            now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+            f.write(f'{save_time}\t{count}\n')
+            f.close()
+
         pygame.display.update()
 
 # initGame()
