@@ -156,7 +156,7 @@ def runGame():
 
         drawObject(fighter, x, y)  # 비행기를 게임 화면의 (x, y) 좌표에 그림
 
-        if rockPassed == 7:  # 운석 7개 놓치면 게임 오버
+        if rockPassed == 3:  # 운석 7개 놓치면 게임 오버
             gameOver()
 
         # 미사일 발사 화면에 그리기
@@ -229,6 +229,3 @@ def runGame():
         clock.tick(60)  # 게임화면의 초당 프레임수를 60으로 설정
 
     pygame.quit()  # pygame 종료
-
-
-
