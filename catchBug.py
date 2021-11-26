@@ -28,7 +28,7 @@ def runGame():
     game_over = 0
 
     bug_image = pygame.image.load('bug.png')
-    bug_image = pygame.transform.scale(bug_image, (60, 80))
+    bug_image = pygame.transform.scale(bug_image, (70, 60))
     bugs = []
     for i in range(3):
         bug = pygame.Rect(bug_image.get_rect())
