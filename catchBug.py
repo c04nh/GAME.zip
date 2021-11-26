@@ -5,12 +5,13 @@ import time
 pygame.init()
 
 def initGame():
-    global BLACK, RED, YELLOW, large_font, small_font, screen_width, screen_height, screen, done, clock
+    global BLACK, RED, YELLOW, WHITE, large_font, small_font, screen_width, screen_height, screen, done, clock
     BLACK = (0, 0, 0)
     RED = (255, 0, 0)
     YELLOW = (255, 255, 0)
-    large_font = pygame.font.SysFont(None, 72)
-    small_font = pygame.font.SysFont(None, 36)
+    WHITE = (255, 255, 255)
+    large_font = pygame.font.SysFont('malgungothic', 36)
+    small_font = pygame.font.SysFont('malgungothic', 25)
     screen_width = 480
     screen_height = 640
     screen = pygame.display.set_mode((screen_width, screen_height))
@@ -19,7 +20,7 @@ def initGame():
     clock = pygame.time.Clock()
 
 def runGame():
-    global BLACK, RED, YELLOW, large_font, small_font, screen_width, screen_height, screen, done, clock
+    global BLACK, RED, YELLOW, WHITE, large_font, small_font, screen_width, screen_height, screen, done, clock
     pygame.init()
     score = 0
     start_time = int(time.time())
@@ -37,6 +38,7 @@ def runGame():
         dy = random.randint(-9, 9)
         bugs.append((bug, dx, dy))
 
+    f = open('catchBug.txt', 'a')
     while not done: 
         clock.tick(30)
         screen.fill(BLACK) 
@@ -89,9 +91,20 @@ def runGame():
 
         if game_over == 1:
             game_over_image = large_font.render('GameOver', True, RED)
-            screen.blit(game_over_image, (screen_width // 2 - game_over_image.get_width() // 2, screen_height // 2 - game_over_image.get_height() // 2))
+            total_score = large_font.render('{}점'.format(score), True, RED)
+            save_score_image = small_font.render('점수 저장', True, WHITE)
+            screen.blit(game_over_image, (screen_width // 2 - game_over_image.get_width() // 2, screen_height // 2 - game_over_image.get_height() // 2 - 100))
+            screen.blit(total_score, (screen_width // 2 - total_score.get_width() // 2, screen_height // 2 - total_score.get_height() // 2 - 50))
+            screen.blit(save_score_image, (screen_width // 2 - save_score_image.get_width() // 2, screen_height // 2 - save_score_image.get_height() // 2 - 10))
+
+            f.write(f'{score}\n')
+            f.close()
 
         pygame.display.update()
+
+
+
+
 
 # initGame()
 # runGame()
