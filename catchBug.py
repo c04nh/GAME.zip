@@ -98,7 +98,7 @@ def runGame():
             screen.blit(save_score_image, (screen_width // 2 - save_score_image.get_width() // 2, screen_height // 2 - save_score_image.get_height() // 2 - 10))
 
             now = time.localtime()
-            save_time = "%04d/%02d/%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+            save_time = "%04d년 %02d월 %02d일 %02d시 %02d분" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min)
             f.write(f'{save_time}\t{score}\n')
             f.close()
 
