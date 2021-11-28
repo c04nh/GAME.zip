@@ -19,7 +19,7 @@ rockImage = ['Shooting/rock01.png', 'Shooting/rock02.png', 'Shooting/rock03.png'
 def writeScore(count):
     global gamePad
     font = pygame.font.Font('Shooting/NanumGothic.ttf', 20)
-    text = font.render('파괴한 운석 수: ' + str(count), True, (255, 255, 255))
+    text = font.render('Point ' + str(count), True, (255, 255, 0))
     gamePad.blit(text, (10, 0))
 
 
@@ -27,7 +27,7 @@ def writeScore(count):
 def writePassed(count):
     global gamePad
     font = pygame.font.Font('Shooting/NanumGothic.ttf', 20)
-    text = font.render('놓친 운석 수: ' + str(count), True, (255, 0, 0))
+    text = font.render('놓친 운석 수 ' + str(count), True, (255, 255, 0))
     gamePad.blit(text, (340, 0))
 
 
@@ -39,8 +39,8 @@ def writeMessage(text, count):
     count = textfont.render(f'{count}점', True, (255, 0, 0))
     textpos = text.get_rect()
     countpos = count.get_rect()
-    textpos.center = (padwWidth / 2, padHeight / 2)
-    countpos.center = (padwWidth / 2, padHeight / 2 + 30)
+    textpos.center = (padwWidth / 2, padHeight / 2 - 100)
+    countpos.center = (padwWidth / 2, padHeight / 2)
     gamePad.blit(text, textpos)
     gamePad.blit(count, countpos)
     pygame.display.update()
@@ -51,13 +51,13 @@ def writeMessage(text, count):
 # 전투기가 운석과 충돌했을 때 메시지 출력
 def crash(count):
     global gamePad
-    writeMessage('전투기 파괴!', count)
+    writeMessage('GAME OVER', count)
 
 
 # 게임 오버 메시지 보이기
 def gameOver(count):
     global gamePad
-    writeMessage('게임 오버!', count)
+    writeMessage('GAME OVER', count)
 
 
 # 게임에 등장하는 객체를 드로잉
@@ -77,7 +77,6 @@ def initGame():
     missile = pygame.image.load('Shooting/missile.png')  # 미사일 그림
     missile = pygame.transform.scale(missile, (20, 70))
     explosion = pygame.image.load('Shooting/explosion.png')  # 폭발 그림
-    pygame.mixer.music.play(-1)  # 배경 음악 재생
     clock = pygame.time.Clock()
 
 
@@ -151,7 +150,7 @@ def runGame():
             if (rockX > x and rockX < x + fighterWidth) or \
                     (rockX + rockWidth > x and rockX + rockWidth < x + fighterWidth):
                 now = time.localtime()
-                save_time = "%04d년%02d월%02d일 %02d시%02d분" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min)
+                save_time = "%04d년 %02d월 %02d일 %02d시 %02d분" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min)
                 f.write(f'{save_time}\t{shotCount}\n')
                 f.close()
                 gameOver(shotCount)

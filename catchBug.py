@@ -10,8 +10,8 @@ def initGame():
     RED = (255, 0, 0)
     YELLOW = (255, 255, 0)
     WHITE = (255, 255, 255)
-    large_font = pygame.font.SysFont('malgungothic', 36)
-    small_font = pygame.font.SysFont('malgungothic', 25)
+    large_font = pygame.font.Font('Shooting/NanumGothic.ttf', 60)
+    small_font = pygame.font.Font('Shooting/NanumGothic.ttf', 20)
     screen_width = 480
     screen_height = 640
     screen = pygame.display.set_mode((screen_width, screen_height))
@@ -38,7 +38,7 @@ def runGame():
         dy = random.randint(-9, 9)
         bugs.append((bug, dx, dy))
 
-    f = open('catchBug.txt', 'a')
+    f = open('catchBug.txt', 'a', encoding='utf-8')
     while not done: 
         clock.tick(30)
         screen.fill(BLACK) 
@@ -47,10 +47,8 @@ def runGame():
             if event.type == pygame.QUIT: # [X] 종료키가 누르면, 게임 종료
                 done=True
             elif event.type == pygame.MOUSEBUTTONDOWN and game_over == 0:
-                print(event.pos[0], event.pos[1])
                 for (bug, dx, dy) in bugs:
                     if bug.collidepoint(event.pos):
-                        print(bug)
                         bugs.remove((bug, dx, dy))
                         bug = pygame.Rect(bug_image.get_rect())
                         bug.left = random.randint(0, screen_width)
@@ -90,12 +88,10 @@ def runGame():
         screen.blit(remain_time_image, (screen_width - 10 - remain_time_image.get_width(), 10))
 
         if game_over == 1:
-            game_over_image = large_font.render('GameOver', True, RED)
+            game_over_image = large_font.render('GAME OVER', True, RED)
             total_score = large_font.render('{}점'.format(score), True, RED)
-            save_score_image = small_font.render('점수 저장', True, WHITE)
             screen.blit(game_over_image, (screen_width // 2 - game_over_image.get_width() // 2, screen_height // 2 - game_over_image.get_height() // 2 - 100))
-            screen.blit(total_score, (screen_width // 2 - total_score.get_width() // 2, screen_height // 2 - total_score.get_height() // 2 - 50))
-            screen.blit(save_score_image, (screen_width // 2 - save_score_image.get_width() // 2, screen_height // 2 - save_score_image.get_height() // 2 - 10))
+            screen.blit(total_score, (screen_width // 2 - total_score.get_width() // 2, screen_height // 2 - total_score.get_height() // 2 ))
 
             now = time.localtime()
             save_time = "%04d년 %02d월 %02d일 %02d시 %02d분" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min)

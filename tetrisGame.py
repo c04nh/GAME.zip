@@ -209,28 +209,25 @@ def main():
     HEIGHT = 22
     INTERVAL = 40
     FIELD = [[0 for _ in range(WIDTH)] for _ in range(HEIGHT)]
-    COLORS = ((0, 0, 0), (255, 165, 0), (0, 0, 255), (0, 255, 255), \
-              (0, 255, 0), (255, 0, 255), (255, 255, 0), (255, 0, 0), (128, 128, 128))
+    COLORS = ((0, 0, 0), (255, 165, 0), (0, 0, 255), (0, 255, 255), (0, 255, 0), (255, 0, 255), (255, 255, 0), (255, 0, 0), (128, 128, 128))
     BLOCK = None
     NEXT_BLOCK = None
     count = 0
     score = 0
     game_over = False
-    smallfont = pygame.font.SysFont('malgungothic', 25)
-    largefont = pygame.font.SysFont('malgungothic', 40)
-    message_over = largefont.render("GAME OVER!!",
-                                    True, (0, 255, 225))
+    smallfont = pygame.font.Font('Shooting/NanumGothic.ttf', 20)
+    largefont = pygame.font.Font('Shooting/NanumGothic.ttf', 60)
+    message_over = largefont.render("GAME OVER", True, (255, 0, 0))
 
     go_next_block(INTERVAL)
 
     for ypos in range(HEIGHT):
         for xpos in range(WIDTH):
-            FIELD[ypos][xpos] = 8 if xpos == 0 or \
-                xpos == WIDTH - 1 else 0
+            FIELD[ypos][xpos] = 8 if xpos == 0 or xpos == WIDTH - 1 else 0
     for index in range(WIDTH):
         FIELD[HEIGHT-1][index] = 8
 
-    f = open('tetris.txt', 'a')
+    f = open('tetris.txt', 'a', encoding='utf-8')
 
     while True:
         key = None
@@ -287,14 +284,14 @@ def main():
 
         # 점수 나타내기
         score_str = str(score).zfill(6)
-        score_image = smallfont.render(score_str,
-                                       True, (0, 255, 0))
-        SURFACE.blit(score_image, (350, 30))
+        score_image = smallfont.render(f'Point {score_str}',
+                                       True, (255, 255, 0))
+        SURFACE.blit(score_image, (340, 30))
 
         if game_over:
             SURFACE.blit(message_over, (480 // 2 - message_over.get_width() // 2, 640 // 2 - message_over.get_height() // 2 - 100))
-            total_score = smallfont.render('{}점'.format(score), True, (0, 255, 225))
-            SURFACE.blit(total_score, (480 // 2 - total_score.get_width() // 2, 640 // 2 - total_score.get_height() // 2 - 50))
+            total_score = largefont.render('{}점'.format(score), True, (255, 0, 0))
+            SURFACE.blit(total_score, (480 // 2 - total_score.get_width() // 2, 640 // 2 - total_score.get_height() // 2))
 
             now = time.localtime()
             save_time = "%04d년 %02d월 %02d일 %02d시 %02d분" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min)

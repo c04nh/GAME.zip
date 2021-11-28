@@ -7,13 +7,14 @@ import time
 pygame.init() # 2. pygame 초기화
 
 def initGame():
-    global BLACK, RED, GREEN, size, screen, done, clock, last_moved_time, KEY_DIRECTION, large_font
+    global BLACK, RED, GREEN, size, screen, done, clock, last_moved_time, KEY_DIRECTION, large_font, small_font
     BLACK = (0,0,0)
     RED = (255,0,0)
     GREEN = (0,255,0)
     size = [480,640]
     screen = pygame.display.set_mode(size)
-    large_font = pygame.font.SysFont('malgungothic', 36)
+    large_font = pygame.font.Font('Shooting/NanumGothic.ttf', 60)
+    small_font = pygame.font.Font('Shooting/NanumGothic.ttf', 20)
     done= False
     clock= pygame.time.Clock()
     last_moved_time = datetime.now()
@@ -80,7 +81,7 @@ def runGame():
 
     count = 0
 
-    f = open('snake.txt', 'a')
+    f = open('snake.txt', 'a', encoding='utf-8')
     while not done:
         clock.tick(10)
         screen.fill(BLACK)
@@ -98,7 +99,7 @@ def runGame():
                 if event.key in KEY_DIRECTION:
                     snake.direction = KEY_DIRECTION[event.key]
 
-        score_image = large_font.render('Point {}'.format(count), True, (255, 255, 255))
+        score_image = small_font.render('Point {}'.format(count), True, (255, 255, 0))
         screen.blit(score_image, (10, 10))
  
         if timedelta(seconds=0.1) <= datetime.now() - last_moved_time:
@@ -112,10 +113,10 @@ def runGame():
         
         if snake.positions[0] in snake.positions[1:]:
             done = True
-            game_over_image = large_font.render('GameOver', True, RED)
+            game_over_image = large_font.render('GAME OVER', True, RED)
             total_score = large_font.render('{}점'.format(count), True, RED)
             screen.blit(game_over_image, (480 // 2 - game_over_image.get_width() // 2, 640 // 2 - game_over_image.get_height() // 2 - 100))
-            screen.blit(total_score, (480 // 2 - total_score.get_width() // 2, 640 // 2 - total_score.get_height() // 2 - 50))
+            screen.blit(total_score, (480 // 2 - total_score.get_width() // 2, 640 // 2 - total_score.get_height() // 2))
 
             now = time.localtime()
             save_time = "%04d년 %02d월 %02d일 %02d시 %02d분" % (
