@@ -3,7 +3,7 @@ import os
 import pygame
 import sys
 import random
-from time import sleep
+import time
 
 padwWidth = 480  # 게임화면의 가로크기
 padHeight = 640  # 게임화면의 세로 크기
@@ -33,31 +33,34 @@ def writePassed(count):
 
 
 # 게임 메시지 출력
-def writeMessage(text):
+def writeMessage(text, count):
     global gamePad, gameOverSound
-    textfont = pygame.font.Font('Shooting/NanumGothic.ttf', 80)
+    textfont = pygame.font.Font('Shooting/NanumGothic.ttf', 60)
     text = textfont.render(text, True, (255, 0, 0))
+    count = textfont.render(f'{count}점', True, (255, 0, 0))
     textpos = text.get_rect()
+    countpos = count.get_rect()
     textpos.center = (padwWidth / 2, padHeight / 2)
+    countpos.center = (padwWidth / 2, padHeight / 2 + 30)
     gamePad.blit(text, textpos)
+    gamePad.blit(count, countpos)
     pygame.display.update()
     pygame.mixer.music.stop()  # 배경 음악 정지
     gameOverSound.play()  # 게임 오버 사운드 재생
-    sleep(2)
-    pygame.mixer.music.play(-1)  # 배경 음악 재생
-    runGame()
+    os.system("pause")
+
 
 
 # 전투기가 운석과 충돌했을 때 메시지 출력
-def crash():
+def crash(count):
     global gamePad
-    writeMessage('전투기 파괴!')
+    writeMessage('전투기 파괴!', count)
 
 
 # 게임 오버 메시지 보이기
-def gameOver():
+def gameOver(count):
     global gamePad
-    writeMessage('게임 오버!')
+    writeMessage('게임 오버!', count)
 
 
 # 게임에 등장하는 객체를 드로잉
@@ -117,6 +120,7 @@ def runGame():
     shotCount = 0
     rockPassed = 0
 
+    f = open('shooting.txt', 'a', encoding='utf-8')
     onGame = False
     while not onGame:
         for event in pygame.event.get():
@@ -154,12 +158,21 @@ def runGame():
         if y < rockY + rockHeight:
             if (rockX > x and rockX < x + fighterWidth) or \
                     (rockX + rockWidth > x and rockX + rockWidth < x + fighterWidth):
-                crash()
+                now = time.localtime()
+                save_time = "%04d년%02d월%02d일 %02d시%02d분" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min)
+                f.write(f'{save_time}\t{shotCount}\n')
+                f.close()
+                gameOver(shotCount)
+                crash(shotCount)
 
         drawObject(fighter, x, y)  # 비행기를 게임 화면의 (x, y) 좌표에 그림
 
-        if rockPassed == 3:  # 운석 7개 놓치면 게임 오버
-            gameOver()
+        if rockPassed == 3:  # 운석 3개 놓치면 게임 오버
+            now = time.localtime()
+            save_time = "%04d년 %02d월 %02d일 %02d시 %02d분" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min)
+            f.write(f'{save_time}\t{shotCount}\n')
+            f.close()
+            gameOver(shotCount)
 
         # 미사일 발사 화면에 그리기
         if len(missileXY) != 0:
