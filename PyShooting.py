@@ -20,7 +20,7 @@ def writeScore(count):
     global gamePad
     font = pygame.font.Font('Shooting/NanumGothic.ttf', 20)
     text = font.render('Point ' + str(count), True, (255, 255, 0))
-    gamePad.blit(text, (10, 0))
+    gamePad.blit(text, (10, 10))
 
 
 # 운석이 화면 아래로 동과한 개수
@@ -44,7 +44,6 @@ def writeMessage(text, count):
     gamePad.blit(text, textpos)
     gamePad.blit(count, countpos)
     pygame.display.update()
-    os.system("pause")
 
 
 
@@ -149,16 +148,18 @@ def runGame():
         if y < rockY + rockHeight:
             if (rockX > x and rockX < x + fighterWidth) or \
                     (rockX + rockWidth > x and rockX + rockWidth < x + fighterWidth):
+                onGame = True
                 now = time.localtime()
                 save_time = "%04d년 %02d월 %02d일 %02d시 %02d분" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min)
                 f.write(f'{save_time}\t{shotCount}\n')
                 f.close()
-                gameOver(shotCount)
                 crash(shotCount)
+                time.sleep(3)
 
         drawObject(fighter, x, y)  # 비행기를 게임 화면의 (x, y) 좌표에 그림
 
         if rockPassed == 3:  # 운석 3개 놓치면 게임 오버
+            onGame = True
             now = time.localtime()
             save_time = "%04d년 %02d월 %02d일 %02d시 %02d분" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min)
             f.write(f'{save_time}\t{shotCount}\n')

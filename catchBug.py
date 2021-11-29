@@ -2,16 +2,32 @@ import pygame
 import random
 import time
 
-pygame.init()
+def writeScore(count):
+    global screen
+    font = pygame.font.Font('Shooting/NanumGothic.ttf', 20)
+    text = font.render('Point ' + str(count), True, (255, 255, 0))
+    screen.blit(text, (10, 10))
+
+
+def writeMessage(text, count):
+    global screen
+    textfont = pygame.font.Font('Shooting/NanumGothic.ttf', 60)
+    text = textfont.render(text, True, (255, 0, 0))
+    count = textfont.render(f'{count}점', True, (255, 0, 0))
+    textpos = text.get_rect()
+    countpos = count.get_rect()
+    textpos.center = (480 / 2, 640 / 2 - 100)
+    countpos.center = (480 / 2, 640 / 2)
+    screen.blit(text, textpos)
+    screen.blit(count, countpos)
+    pygame.display.update()
 
 def initGame():
-    global BLACK, RED, YELLOW, WHITE, large_font, small_font, screen_width, screen_height, screen, done, clock
+    global BLACK, RED, YELLOW, WHITE, screen_width, screen_height, screen, done, clock
     BLACK = (0, 0, 0)
     RED = (255, 0, 0)
     YELLOW = (255, 255, 0)
     WHITE = (255, 255, 255)
-    large_font = pygame.font.Font('Shooting/NanumGothic.ttf', 60)
-    small_font = pygame.font.Font('Shooting/NanumGothic.ttf', 20)
     screen_width = 480
     screen_height = 640
     screen = pygame.display.set_mode((screen_width, screen_height))
@@ -20,8 +36,9 @@ def initGame():
     clock = pygame.time.Clock()
 
 def runGame():
-    global BLACK, RED, YELLOW, WHITE, large_font, small_font, screen_width, screen_height, screen, done, clock
+    global BLACK, RED, YELLOW, WHITE, screen_width, screen_height, screen, done, clock
     pygame.init()
+    small_font = pygame.font.Font('Shooting/NanumGothic.ttf', 20)
     score = 0
     start_time = int(time.time())
     remain_time = 0
@@ -81,31 +98,22 @@ def runGame():
                 dy = random.randint(-9, 9)
                 bugs.append((bug, dx, dy))
 
-        score_image = small_font.render('Point {}'.format(score), True, YELLOW)
-        screen.blit(score_image, (10, 10))
+        writeScore(score)
 
         remain_time_image = small_font.render('Time {}'.format(remain_time), True, YELLOW)
         screen.blit(remain_time_image, (screen_width - 10 - remain_time_image.get_width(), 10))
 
         if game_over == 1:
-            game_over_image = large_font.render('GAME OVER', True, RED)
-            total_score = large_font.render('{}점'.format(score), True, RED)
-            screen.blit(game_over_image, (screen_width // 2 - game_over_image.get_width() // 2, screen_height // 2 - game_over_image.get_height() // 2 - 100))
-            screen.blit(total_score, (screen_width // 2 - total_score.get_width() // 2, screen_height // 2 - total_score.get_height() // 2 ))
-
+            done = True
             now = time.localtime()
             save_time = "%04d년 %02d월 %02d일 %02d시 %02d분" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min)
             f.write(f'{save_time}\t{score}\n')
             f.close()
+            writeMessage('GAME OVER', score)
+            time.sleep(3)
 
         pygame.display.update()
 
-
-
-
-
-# initGame()
-# runGame()
-# pygame.quit()
+    pygame.quit()
 
 

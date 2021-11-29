@@ -143,6 +143,27 @@ class Block:
                 pygame.draw.rect(SURFACE, COLORS[val],
                                  (x_pos, y_pos, 24, 24))
 
+def writeScore(count):
+    global SURFACE
+    font = pygame.font.Font('Shooting/NanumGothic.ttf', 20)
+    text = font.render(count, True, (255, 255, 0))
+    SURFACE.blit(text, (360, 30))
+
+
+# 게임 메시지 출력
+def writeMessage(text, count):
+    global SURFACE
+    textfont = pygame.font.Font('Shooting/NanumGothic.ttf', 60)
+    text = textfont.render(text, True, (255, 0, 0))
+    count = textfont.render(f'{count}점', True, (255, 0, 0))
+    textpos = text.get_rect()
+    countpos = count.get_rect()
+    textpos.center = (480 / 2, 640 / 2 - 100)
+    countpos.center = (480 / 2, 640 / 2)
+    SURFACE.blit(text, textpos)
+    SURFACE.blit(count, countpos)
+    pygame.display.update()
+
 def erase_line():
     """ 행이 모두 찬 단을 지운다 """
     erased = 0
@@ -181,10 +202,6 @@ def is_overlapped(xpos, ypos, turn):
                     FIELD[ypos+y_offset][xpos+x_offset] != 0:
                     return True
     return False
-
-# 전역 변수
-pygame.init()
-
 # def initGame():
 #     global SURFACE, SURFACE, FPSCLOCK, WIDTH, HEIGHT, INTERVAL, FIELD, COLORS, BLOCK, NEXT_BLOCK
 #     pygame.key.set_repeat(30, 30)
@@ -202,6 +219,7 @@ pygame.init()
 def main():
     """ 메인 루틴 """
     global SURFACE, SURFACE, FPSCLOCK, WIDTH, HEIGHT, INTERVAL, FIELD, COLORS, BLOCK, NEXT_BLOCK
+    pygame.init()
     pygame.key.set_repeat(30, 30)
     SURFACE = pygame.display.set_mode([480, 640])
     pygame.display.set_caption("테트리스")
@@ -216,9 +234,6 @@ def main():
     count = 0
     score = 0
     game_over = False
-    smallfont = pygame.font.Font('Shooting/NanumGothic.ttf', 20)
-    largefont = pygame.font.Font('Shooting/NanumGothic.ttf', 60)
-    message_over = largefont.render("GAME OVER", True, (255, 0, 0))
 
     go_next_block(INTERVAL)
 
@@ -230,7 +245,7 @@ def main():
 
     f = open('tetris.txt', 'a', encoding='utf-8')
 
-    while True:
+    while not game_over:
         key = None
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -285,19 +300,18 @@ def main():
 
         # 점수 나타내기
         score_str = str(score).zfill(6)
-        score_image = smallfont.render(f'Point {score_str}',
-                                       True, (255, 255, 0))
-        SURFACE.blit(score_image, (340, 30))
+        writeScore(score_str)
 
         if game_over:
-            SURFACE.blit(message_over, (480 // 2 - message_over.get_width() // 2, 640 // 2 - message_over.get_height() // 2 - 100))
-            total_score = largefont.render('{}점'.format(score), True, (255, 0, 0))
-            SURFACE.blit(total_score, (480 // 2 - total_score.get_width() // 2, 640 // 2 - total_score.get_height() // 2))
-
+            game_over = True
             now = time.localtime()
             save_time = "%04d년 %02d월 %02d일 %02d시 %02d분" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min)
             f.write(f'{save_time}\t{score}\n')
             f.close()
+            writeMessage('GAME OVER', score)
+            time.sleep(3)
 
         pygame.display.update()
         FPSCLOCK.tick(15)
+
+    pygame.quit()
