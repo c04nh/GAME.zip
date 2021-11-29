@@ -204,6 +204,7 @@ def main():
     global SURFACE, SURFACE, FPSCLOCK, WIDTH, HEIGHT, INTERVAL, FIELD, COLORS, BLOCK, NEXT_BLOCK
     pygame.key.set_repeat(30, 30)
     SURFACE = pygame.display.set_mode([480, 640])
+    pygame.display.set_caption("테트리스")
     FPSCLOCK = pygame.time.Clock()
     WIDTH = 12
     HEIGHT = 22

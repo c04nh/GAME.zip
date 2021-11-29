@@ -13,6 +13,7 @@ def initGame():
     GREEN = (0,255,0)
     size = [480,640]
     screen = pygame.display.set_mode(size)
+    pygame.display.set_caption("스네이크 게임")
     large_font = pygame.font.Font('Shooting/NanumGothic.ttf', 60)
     small_font = pygame.font.Font('Shooting/NanumGothic.ttf', 20)
     done= False

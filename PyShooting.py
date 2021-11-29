@@ -70,7 +70,7 @@ def initGame():
     global gamePad, clock, background, fighter, missile, explosion
     pygame.init()
     gamePad = pygame.display.set_mode((padwWidth, padHeight))
-    pygame.display.set_caption('PyShooting')  # 게임 이름
+    pygame.display.set_caption('운석 깨기')  # 게임 이름
     background = pygame.image.load('Shooting/background.png')  # 배경 그림
     fighter = pygame.image.load('Shooting/fighter.png')  # 전투기 그림
     fighter = pygame.transform.scale(fighter, (140, 141))
