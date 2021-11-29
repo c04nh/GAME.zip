@@ -63,7 +63,7 @@ def runGame():
                 bug.left += dx
                 bug.top += dy
 
-            remain_time = 60 - (int(time.time()) - start_time)
+            remain_time = 30 - (int(time.time()) - start_time)
 
             if remain_time <= 0:
                 game_over = 1
