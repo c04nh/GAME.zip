@@ -2,8 +2,11 @@ from tkinter import *
 import operator
 
 def shooting():
+    label1 = Label(root, bg='black')
     label2 = Label(root, text='운석 깨기', font=('Shooting/NanumGothic.ttf', 22), fg='white', bg='black')  # 글씨 생성
+    label1.place(x=0, y=180, anchor="nw", width=480, height=380)
     label2.place(x=0, y=120, relx=0.5, anchor="s", width = 200)  # 글씨 배치
+
     f = open("shooting.txt", 'r', encoding='utf-8')
     rank = {}
     top5 = []
@@ -290,8 +293,10 @@ def main():
     btn3 = Button(root, text='테트리스', font=('Shooting/NanumGothic.ttf', 13), fg='red', command=tetris)  # 버튼 생성
     btn4 = Button(root, text='스네이크 게임', font=('Shooting/NanumGothic.ttf', 13), fg='red', command=snakeGame)  # 버튼 생성
     btn5 = Button(root, text='홈으로', font=('Shooting/NanumGothic.ttf', 16), fg='red', command=exit)  # 버튼 생성
+    label = Label(root, text='TOP5를 보고 싶은\n게임을 선택하세요', font=('Shooting/NanumGothic.ttf', 18), fg='white', bg='black')  # 글씨 생성
     btn1.place(x=0, y=1, width=120, height=50)  # 버튼 배치
     btn2.place(x=120, y=1, width=120, height=50)  # 버튼 배치
     btn3.place(x=240, y=1, width=120, height=50)  # 버튼 배치
     btn4.place(x=360, y=1, width=120, height=50)  # 버튼 배치
     btn5.place(x=140, y=570, width=200, height=50)  # 버튼 배치
+    label.place(x=240, y=340, anchor="s")  # 글씨 배치
