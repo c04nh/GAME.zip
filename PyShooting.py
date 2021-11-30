@@ -28,7 +28,7 @@ def writePassed(count):
     global gamePad
     font = pygame.font.Font('Shooting/NanumGothic.ttf', 20)
     text = font.render('놓친 운석 수 ' + str(count), True, (255, 255, 0))
-    gamePad.blit(text, (340, 0))
+    gamePad.blit(text, (340, 10))
 
 
 # 게임 메시지 출력

@@ -202,19 +202,6 @@ def is_overlapped(xpos, ypos, turn):
                     FIELD[ypos+y_offset][xpos+x_offset] != 0:
                     return True
     return False
-# def initGame():
-#     global SURFACE, SURFACE, FPSCLOCK, WIDTH, HEIGHT, INTERVAL, FIELD, COLORS, BLOCK, NEXT_BLOCK
-#     pygame.key.set_repeat(30, 30)
-#     SURFACE = pygame.display.set_mode([600, 600])
-#     FPSCLOCK = pygame.time.Clock()
-#     WIDTH = 12
-#     HEIGHT = 22
-#     INTERVAL = 40
-#     FIELD = [[0 for _ in range(WIDTH)] for _ in range(HEIGHT)]
-#     COLORS = ((0, 0, 0), (255, 165, 0), (0, 0, 255), (0, 255, 255), \
-#               (0, 255, 0), (255, 0, 255), (255, 255, 0), (255, 0, 0), (128, 128, 128))
-#     BLOCK = None
-#     NEXT_BLOCK = None
 
 def main():
     """ 메인 루틴 """
