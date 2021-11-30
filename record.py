@@ -63,7 +63,9 @@ def shooting():
     f.close()
 
 def bug():
+    label1 = Label(root, bg='black')
     label2 = Label(root, text='벌레 잡기', font=('Shooting/NanumGothic.ttf', 22), fg='white', bg='black')  # 글씨 생성
+    label1.place(x=0, y=180, anchor="nw", width=480, height=380)
     label2.place(x=0, y=120, relx=0.5, anchor="s", width = 200)  # 글씨 배치
     f = open("catchBug.txt", 'r', encoding='utf-8')
     rank = {}
@@ -131,7 +133,9 @@ def bug():
     f.close()
 
 def snakeGame():
+    label1 = Label(root, bg='black')
     label2 = Label(root, text='스네이크 게임', font=('Shooting/NanumGothic.ttf', 22), fg='white', bg='black')  # 글씨 생성
+    label1.place(x=0, y=180, anchor="nw", width=480, height=380)
     label2.place(x=0, y=120, relx=0.5, anchor="s", width = 200)  # 글씨 배치
     f = open("snake.txt", 'r', encoding='utf-8')
     rank = {}
@@ -199,7 +203,9 @@ def snakeGame():
     f.close()
 
 def tetris():
+    label1 = Label(root, bg='black')
     label2 = Label(root, text='테트리스', font=('Shooting/NanumGothic.ttf', 22), fg='white', bg='black')  # 글씨 생성
+    label1.place(x=0, y=180, anchor="nw", width=480, height=380)
     label2.place(x=0, y=120, relx=0.5, anchor="s", width = 200)  # 글씨 배치
     f = open("tetris.txt", 'r', encoding='utf-8')
     rank = {}
