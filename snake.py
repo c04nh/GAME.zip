@@ -120,6 +120,7 @@ def runGame():
                 if event.key in KEY_DIRECTION:
                     snake.direction = KEY_DIRECTION[event.key]
 
+
         writeScore(count)
 
         if timedelta(seconds=0.1) <= datetime.now() - last_moved_time:
