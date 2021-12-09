@@ -9,7 +9,7 @@
 1. 메인 화면에서 원하는 게임을 선택합니다.
 2. 게임 방법에 맞게 플레이합니다.
 3. 게임이 오버되면 3초 후 자동으로 메인 화면으로 돌아가집니다.
-4. TOP5 버튼을 누른 후 게임을 선택하면 TOP5의 날짜, 시간과 점수가 보입니다.
+4. TOP5 버튼을 누른 후 게임을 선택하면 TOP5의 날짜, 시간과 점수가 보입니다. <br><br>
 ![image](https://user-images.githubusercontent.com/80023397/145394112-21f77fcc-03a4-4c01-b19d-7b1cfb4152c1.png)
 ![image](https://user-images.githubusercontent.com/80023397/145394244-99ebcc87-ef0d-4f85-9e4c-2184b40d2e97.png)
 
